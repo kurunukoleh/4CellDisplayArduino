@@ -1,0 +1,378 @@
+
+#define D1 2
+#define D2 3
+#define D3 4
+#define D4 5
+#define A 6
+#define B 8
+#define C 12
+#define D 10
+#define E 9
+#define F 7
+#define G 13
+#define DP 11
+
+int q = 5;
+
+
+void cellChoose(bool ce1 , bool ce2 , bool ce3 , bool ce4){
+    digitalWrite(D1 , ce1);
+    digitalWrite(D2 , ce2);
+    digitalWrite(D3 , ce3);
+    digitalWrite(D4 , ce4);
+  }
+
+void clearDisp(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , LOW);
+    digitalWrite(E , LOW);
+    digitalWrite(F , LOW);
+    digitalWrite(G , LOW);
+  }
+
+
+
+void print1(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , LOW);
+    digitalWrite(E , LOW);
+    digitalWrite(F , LOW);
+    digitalWrite(G , LOW);
+ 
+  }
+  
+void print2(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , LOW);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , LOW);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+
+void print3(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , LOW);
+    digitalWrite(F , LOW);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+void print4(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , LOW);
+    digitalWrite(E , LOW);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+void print5(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , LOW);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , LOW);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+void print6(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , LOW);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+void print7(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , LOW);
+    digitalWrite(E , LOW);
+    digitalWrite(F , LOW);
+    digitalWrite(G , LOW);
+ 
+  }
+
+void print8(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+
+void print9(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , LOW);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+void print0(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , LOW);
+  }
+
+
+void printF(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , LOW);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+
+void printA(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , LOW);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+ 
+  }
+
+void printC(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , LOW);
+  }
+
+void printE(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+  }
+
+void printL(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , LOW);
+
+}
+
+void printH(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , LOW);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+}
+
+void printP(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , LOW);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+  }
+
+
+void printS(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , LOW);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , LOW);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+  }
+
+void printO(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , LOW);
+  }
+
+void printJ(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , LOW);
+    digitalWrite(F , LOW);
+    digitalWrite(G , LOW);
+  }
+
+void printI(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , LOW);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , LOW);
+  }
+
+void printU(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , LOW);
+  }
+
+void printPI(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , HIGH);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , LOW);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , LOW);
+  }
+
+void printSoftMark(){
+    digitalWrite(A , LOW);
+    digitalWrite(B , LOW);
+    digitalWrite(C , HIGH);
+    digitalWrite(D , HIGH);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , HIGH);
+  }
+
+void printGE(){
+    digitalWrite(A , HIGH);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , LOW);
+    digitalWrite(E , HIGH);
+    digitalWrite(F , HIGH);
+    digitalWrite(G , LOW);
+  }
+
+void printDP(){
+    digitalWrite(DP , HIGH);
+    digitalWrite(A , LOW);
+    digitalWrite(B , LOW);
+    digitalWrite(C , LOW);
+    digitalWrite(D , LOW);
+    digitalWrite(E , LOW);
+    digitalWrite(F , LOW);
+    digitalWrite(G , LOW);
+  }
+
+void ifer(char xa){
+  if (xa < 1){print0();}
+   else if (xa >= 1 and xa < 2){print1();}
+   else if (xa >= 2 and xa < 3){print2();}
+   else if (xa >= 3 and xa < 4){print3();}
+   else if (xa >= 4 and xa < 5){print4();}
+   else if (xa >= 5 and xa < 6){print5();}
+   else if (xa >= 6 and xa < 7){print6();}
+   else if (xa >= 7 and xa < 8){print7();}
+   else if (xa >= 8 and xa< 9){print8();}
+   else{print9();}
+}
+  
+void setup() {
+  pinMode(D1 , OUTPUT);
+  pinMode(D2 , OUTPUT);
+  pinMode(D3 , OUTPUT);
+  pinMode(D4 , OUTPUT);
+  pinMode(A , OUTPUT);
+  pinMode(B , OUTPUT);
+  pinMode(C , OUTPUT);
+  pinMode(D , OUTPUT);
+  pinMode(E , OUTPUT);
+  pinMode(F , OUTPUT);
+  pinMode(G , OUTPUT);
+  pinMode(DP , OUTPUT);
+  pinMode(A1 , INPUT);
+  Serial.begin(9600);
+}
+
+
+void loop() {
+   long int anr = analogRead(A1);
+    
+   Serial.println(anr);   
+   
+   char x4=anr%10;
+   anr = anr / 10;
+   
+   char x3=anr%10;
+   anr = anr / 10;
+ 
+   char x2=anr%10;
+   anr = anr / 10;
+ 
+   char x1=anr%10;
+
+   cellChoose(LOW , HIGH , HIGH , HIGH);
+   ifer(x1);
+   delay(q);
+
+   cellChoose(HIGH , LOW , HIGH , HIGH);
+   ifer(x2);
+   delay(q);
+
+   cellChoose(HIGH , HIGH , LOW , HIGH);
+   ifer(x3);
+   delay(q);
+
+   cellChoose(HIGH , HIGH , HIGH , LOW);
+   ifer(x4);
+   delay(q);
+
+}
