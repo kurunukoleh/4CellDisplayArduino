@@ -1,0 +1,106 @@
+#include <iarduino_RTC.h>
+iarduino_RTC watch(RTC_DS1302, 2, 3, 4);
+
+int q = 1;
+int xa = 0;
+
+//int dataf0  = 0b00001100;
+//int dataf1  = 0b00001100;
+//int dataf3  = 0b11110010;
+//int dataf4  = 0b01100110;
+//int dataf5  = 0b10110110;
+//int dataf6  = 0b10111110;
+//int dataf7  = 0b11100000;
+//int dataf8  = 0b11111110;
+//int dataf9  = 0b11110110 ;
+
+int nt = 0 ;
+
+void cellChoose(bool ce1 , bool ce2 , bool ce3 , bool ce4){
+    digitalWrite(5 , ce1);
+    digitalWrite(6 , ce2);
+    digitalWrite(7 , ce3);
+    digitalWrite(8 , ce4);
+  }
+
+void render( int xa , int smbl){
+
+  if (xa < 1){ smbl = 0b11111100;}
+   else if (xa >= 1 and xa < 2){ smbl = 0b00001100;}
+   else if (xa >= 2 and xa < 3){ smbl = 0b11011010;}
+   else if (xa >= 3 and xa < 4){ smbl = 0b11110010;}
+   else if (xa >= 4 and xa < 5){ smbl = 0b01100110;}
+   else if (xa >= 5 and xa < 6){ smbl = 0b10110110;}
+   else if (xa >= 6 and xa < 7){ smbl = 0b10111110;}
+   else if (xa >= 7 and xa < 8){ smbl = 0b11100000;}
+   else if (xa >= 8 and xa< 9){ smbl =  0b11111110;}
+   else{ smbl = 0b11110110 ;}
+
+   shiftOut(12  , 11  , LSBFIRST  , smbl);
+}
+
+
+void setup(){                                          
+    delay(300);
+    Serial.begin(9600); 
+    watch.begin();
+    for(int i1 = 5 ; i1 < 9 ; i1++){
+        pinMode(i1 , OUTPUT);
+      }
+    for(int i2 = 10 ; i2 < 13 ; i2++){
+        pinMode(i2 , OUTPUT);
+      }                                        
+}
+
+void loop() {
+  if(millis()%1000==0){
+      Serial.println(watch.gettime("d-m-Y, H:i:s, D"));
+      nt += 1;
+      //delay(1);
+    }
+
+  long int anr = nt;
+    
+   Serial.println(anr);   
+   
+   char x4=anr%10;
+   anr = anr / 10;
+   
+   char x3=anr%10;
+   anr = anr / 10;
+ 
+   char x2=anr%10;
+   anr = anr / 10;
+ 
+   char x1=anr%10;
+
+  digitalWrite(10 , LOW);
+  render( 5 , 0);
+  cellChoose(1 , 0 , 0 , 1);
+  digitalWrite(10 , HIGH);
+   
+   digitalWrite(10 , LOW);
+   cellChoose(LOW , HIGH , HIGH , HIGH);
+   render(x1 , 0);
+   digitalWrite(10 , HIGH);
+   delay(q);
+   
+   digitalWrite(10 , LOW);
+   cellChoose(HIGH , LOW , HIGH , HIGH);
+   render(x2 , 0);
+   digitalWrite(10 , HIGH);
+   delay(q);
+   
+   digitalWrite(10 , LOW);
+   cellChoose(HIGH , HIGH , LOW , HIGH);
+   render(x3 , 0);
+   digitalWrite(10 , HIGH);
+   delay(q);
+   
+   digitalWrite(10 , LOW);
+   cellChoose(HIGH , HIGH , HIGH , LOW);
+   render(x4 , 0);
+   digitalWrite(10 , HIGH);
+   delay(q);
+                 
+}
