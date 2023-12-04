@@ -1,0 +1,123 @@
+#include <iarduino_RTC.h>
+iarduino_RTC watch(RTC_DS1302, 2, 3, 4);
+
+int q = 1;
+int xa = 0;
+int fps = 0;
+int nt4;
+int nt3;
+int nt2;
+int nt1;
+char x4;
+char x3;
+char x2;
+char x1;
+int ntx; 
+
+//byte dataf0  = 0b00001100;
+//byte dataf1  = 0b00001100;
+//byte dataf2  = 0b11011010;
+//byte dataf3  = 0b11110010;
+//byte dataf4  = 0b01100110;
+//byte dataf5  = 0b10110110;
+//byte dataf6  = 0b10111110;
+//byte dataf7  = 0b11100000;
+//byte dataf8  = 0b11111110;
+//byte dataf9  = 0b11110110 ;
+
+int nt = 0 ;
+
+void cellChoose(bool ce1 , bool ce2 , bool ce3 , bool ce4){
+    digitalWrite(5 , ce1);
+    digitalWrite(6 , ce2);
+    digitalWrite(7 , ce3);
+    digitalWrite(8 , ce4);
+  }
+
+void render( int xa){
+
+  byte smbl;
+
+  if(xa < 1){ smbl = 0b00000000;}
+   else if (xa >= 1 and xa < 2){ smbl = 0b00001100;}
+   else if (xa >= 2 and xa < 3){ smbl = 0b11011010;}
+   else if (xa >= 3 and xa < 4){ smbl = 0b11110010;}
+   else if (xa >= 4 and xa < 5){ smbl = 0b01100110;}
+   else if (xa >= 5 and xa < 6){ smbl = 0b10110110;}
+   else if (xa >= 6 and xa < 7){ smbl = 0b10111110;}
+   else if (xa >= 7 and xa < 8){ smbl = 0b11100000;}
+   else if (xa >= 8 and xa< 9){ smbl =  0b11111110;}
+   else{ smbl = 0b11110110 ;}
+
+   shiftOut(12  , 11  , LSBFIRST  , smbl);
+}
+
+
+
+
+void setup(){                                          
+    delay(300);
+    Serial.begin(9600); 
+    watch.begin();
+    for(int i1 = 5 ; i1 < 9 ; i1++){
+        pinMode(i1 , OUTPUT);
+      }
+    for(int i2 = 10 ; i2 < 13 ; i2++){
+        pinMode(i2 , OUTPUT);
+      }                                        
+}
+
+void loop() {
+  fps = millis();
+  if(millis()%1000==0){
+      Serial.println(watch.gettime("d-m-Y, H:i:s, D"));
+      nt += 1;
+      
+      ntx = nt ;
+
+      x4 = ntx%10;
+      ntx = ntx - x4;
+      x3 = (ntx%100)/10;
+      ntx = ntx - 10*x3;
+      x2 = (ntx%1000)/100;
+      ntx = ntx - 100*x2;
+      x1 = ntx/1000;
+
+      //Serial.println(x1 , DEC);
+      //Serial.println(x2 , DEC);
+      //Serial.println(x3 , DEC);
+      //Serial.println(x4 , DEC);
+      
+      delay(1);
+      
+    }
+
+   if(millis()-fps > 1){
+
+   digitalWrite(10 , LOW);
+   render(x1);
+   cellChoose(LOW , HIGH , HIGH , HIGH);
+   digitalWrite(10 , HIGH);
+   
+   digitalWrite(10 , LOW);
+   render(x2);
+   cellChoose(HIGH , HIGH , LOW , HIGH);
+   digitalWrite(10 , HIGH);
+   
+   digitalWrite(10 , LOW);
+   render(x3);
+   cellChoose(HIGH , LOW , HIGH , LOW);
+   digitalWrite(10 , HIGH);
+   
+   digitalWrite(10 , LOW);
+   render(x4);
+   cellChoose(HIGH , HIGH , HIGH ,LOW);
+   digitalWrite(10 , HIGH);
+
+   //digitalWrite(10 , LOW);
+   //cellChoose(LOW , LOW , LOW , LOW);
+   //shiftOut(12  , 11  , LSBFIRST  , 0b00000000);
+   //digitalWrite(10 , HIGH);
+   fps = millis();
+   }        
+}
