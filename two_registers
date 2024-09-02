@@ -1,0 +1,125 @@
+#include <Keypad.h>
+
+int cell1;
+int cell2;
+int cell3;
+int cell4;
+
+int button_value;
+int numc = 1 ;
+int val;
+
+
+const byte ROWS = 4;
+const byte COLS = 4;
+int fps = 100;
+
+//int timm = millis();
+
+char MatrixKeyPad[ROWS][COLS] = {
+      {'1','2','3','4'},
+      {'5','6','7','8'},
+      {'9','A','B','C'},
+      {'D','E','F','G'}         };
+
+byte rowPins[ROWS] = {6, 7, 8, 9};
+byte colPins[COLS] = {5, 4, 3, 2};
+
+Keypad customKeypad = Keypad(makeKeymap(MatrixKeyPad), colPins, rowPins, COLS, ROWS);
+
+void render( int num , int cell , bool point){
+
+  byte smbl;
+  byte cn;
+
+  if(num == 0){ smbl = 0b11111100;}
+   if ( num == 1){ smbl = 0b00001100;}
+   if ( num == 2){ smbl = 0b11011010;}
+   if ( num == 3){ smbl = 0b11110010;}
+   if ( num == 4){ smbl = 0b01100110;}
+   if ( num == 5){ smbl = 0b10110110;}
+   if ( num == 6){ smbl = 0b10111110;}
+   if ( num == 7){ smbl = 0b11100000;}
+   if ( num == 8){ smbl =  0b11111110;}
+   if ( num == 9) { smbl = 0b11110110;}
+   else{smbl == 0b10011100;}
+
+   if (cell == 1){cn = 0b01111111;}
+   else if (cell == 2){cn = 0b10111111;}
+   else if (cell == 3){cn = 0b11011111;}
+   else{cn = 0b11101111;}
+
+   if (point){smbl += 1 ;}
+
+   digitalWrite(10 , LOW);
+   shiftOut(12  , 11  , LSBFIRST  , cn);
+   shiftOut(12  , 11  , LSBFIRST  , smbl);
+   //shiftOut(12  , 11  , LSBFIRST  , cn);
+   digitalWrite(10 , HIGH);
+
+   //Serial.println(smbl);
+   //Serial.println(cn);
+}
+
+void setup() {
+  for(int i2 = 10 ; i2 < 13 ; i2++){
+        pinMode(i2 , OUTPUT);
+      }
+  for(int i = 2 ; i <= 9 ; i++){
+        pinMode(i , INPUT);
+      }
+      digitalWrite(10 , HIGH);
+      Serial.begin(9600);                   
+}
+
+void loop() {
+  //char customKey = customKeypad.getKey();
+
+  //if (customKey>'0'&customKey<'A'){Serial.print('S');Serial.println(customKey);}
+  //if (customKey=='A'){Serial.println("S10");}
+  //if (customKey=='B'){Serial.println("S11");}
+  //if (customKey=='C'){Serial.println("S12");}
+  //if (customKey=='D'){Serial.println("S13");}
+  //if (customKey=='E'){Serial.println("S14");}
+  //if (customKey=='F'){Serial.println("S15");}
+  //if (customKey=='G'){Serial.println("S16");}
+  
+  //render(7 , 2 , false);
+
+  
+  render(cell1 , 1 , false);
+  delay(fps);
+  render(cell2 , 2 , true);
+  delay(fps);
+  render(cell3 , 3 , false);
+  delay(fps);
+  render(cell4 , 4 , false);
+  delay(fps);
+
+  Serial.println(val);
+
+}
+
+void yield(){
+  char customKey = customKeypad.getKey();
+
+ if(customKey == '0'){button_value = 0;}
+ if(customKey == '1'){button_value = 1;}
+ if(customKey == '2'){button_value = 2;}
+ if(customKey == '3'){button_value = 3;}
+ if(customKey == '4'){button_value = 4;}
+ if(customKey == '5'){button_value = 5;}
+ if(customKey == '6'){button_value = 6;}
+ if(customKey == '7'){button_value = 7;}
+ if(customKey == '8'){button_value = 8;}
+ if(customKey == '9'){button_value = 9;}
+
+ //if (customKey>'0'&customKey<'A'){numc += 1; if(numc > 4){numc = 1;}  val += button_value*(10^numc);}
+ 
+  if (customKey>'0'&customKey<'A'){
+      if(numc == 1){cell1 = button_value ; numc = 2; }
+      else if(numc == 2){cell2 = button_value ; numc = 3; }
+      else if(numc == 3){cell3 = button_value ; numc = 4; }
+      else if(numc == 4){cell4 = button_value ; numc = 1; }
+    }
+}
